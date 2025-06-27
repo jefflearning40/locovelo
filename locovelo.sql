@@ -1,0 +1,9 @@
+CREATE DATABASE locovelo;
+USE locovelo;
+CREATE TABLE client(
+id_client INT PRIMARY KEY AUTO_INCREMENT;
+prenom VARCHAR(255) NOT NULL;
+nom VARCHAR(255) NOT NULL;
+email VARCHAR(255) NOT NULL;
+dateInscription DATE;
+);
