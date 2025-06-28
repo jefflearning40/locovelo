@@ -1,5 +1,16 @@
-1,Theo-24,ville,l,2024-08-19,5.99,bon,false
-2,Walgreens Sunscreen Baby,route,s,2024-09-29,26.99,neuf,false
-3,Amoxicillin and Clavulanate Potassium,tout terrain,l,2024-07-25,4.49,neuf,true
-4,BZK Pads,ville,l,2025-03-27,19.99,bon,true
-5,Sensipar,route,xl,2025-04-17,19.99,bon,true
+id_velo,marque,type,taille,tarifHoraire,etat,disponible
+1,MarqueA,ville,M,12.81,bon,non
+2,MarqueD,ville,S,15.18,neuf,non
+3,MarqueB,ville,XL,15.81,bon,oui
+4,MarqueA,tout terrain,S,13.73,usé,non
+5,MarqueD,route,XL,13.06,usé,oui
+6,MarqueD,tout terrain,M,16.38,neuf,oui
+7,MarqueD,course,L,6.59,bon,non
+8,MarqueD,course,XL,12.1,bon,oui
+9,MarqueB,tout terrain,XL,7.79,bon,oui
+10,MarqueD,ville,S,16.05,bon,oui
+11,MarqueB,route,L,8.25,usé,non
+12,MarqueC,route,XL,7.03,usé,non
+13,MarqueA,route,S,9.86,usé,oui
+14,MarqueD,route,M,7.25,neuf,non
+15,MarqueC,ville,XL,8.33,usé,oui

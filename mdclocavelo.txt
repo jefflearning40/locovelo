@@ -1,0 +1,35 @@
++-------------+       +-------------+       +-------------+
+|   Client    |       |   Location  |       |    Velo     |
++-------------+       +-------------+       +-------------+
+| PK: id_client|<----->| PK: id_location |<----->| PK: id_velo|
+|    prenom    | 1,N  | FK: id_client | N,1 |    marque    |
+|     nom      |       | FK: id_velo   |     |     type     |
+|    email     |       | date_heure_debut | |    taille     |
+| dateInscription|    | date_heure_fin |     | tarifHoraire |
++-------------+       |  montantTotal |     |     etat     |
+                      +-------------+       |  disponible |
+                                                +-------------+
+able Client
+Nom	Type	Contraintes
+id_client	INT	PRIMARY KEY, AUTO_INCREMENT
+prenom	VARCHAR(50)	NOT NULL
+nom	VARCHAR(50)	NOT NULL
+email	VARCHAR(100)	UNIQUE, NOT NULL
+dateInscription	DATE	NOT NULL
+Table Velo
+Nom	Type	Contraintes
+id_velo	INT	PRIMARY KEY, AUTO_INCREMENT
+marque	VARCHAR(50)	NOT NULL
+type	ENUM('ville', 'route', 'tout terrain', 'course')	NOT NULL
+taille	ENUM('S', 'M', 'L', 'XL')	NOT NULL
+tarifHoraire	DECIMAL(10, 2)	NOT NULL
+etat	ENUM('neuf', 'bon', 'usé')	NOT NULL
+disponible	ENUM('oui', 'non')	NOT NULL
+Table Location
+Nom	Type	Contraintes
+id_location	INT	PRIMARY KEY, AUTO_INCREMENT
+id_client	INT	FOREIGN KEY REFERENCES Client(id_client), NOT NULL
+id_velo	INT	FOREIGN KEY REFERENCES Velo(id_velo), NOT NULL
+date_heure_debut	DATETIME	NOT NULL
+date_heure_fin	DATETIME	NOT NULL
+montantTotal	DECIMAL(10, 2)	NOT NULL
