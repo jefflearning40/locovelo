@@ -28,17 +28,7 @@ CREATE TABLE Location (
     CHECK (date_heure_fin > date_heure_debut),
     CHECK (montantTotal > 0)
 );
-CREATE INDEX idx_client_nom ON Client(nom);
-CREATE INDEX idx_client_email ON Client(email);
-CREATE INDEX idx_velo_type ON Velo(type);
-CREATE INDEX idx_velo_taille ON Velo(taille);
-CREATE INDEX idx_velo_etat ON Velo(etat);
-CREATE INDEX idx_velo_disponible ON Velo(disponible);
-CREATE INDEX idx_location_id_client ON Location(id_client);
-CREATE INDEX idx_location_id_velo ON Location(id_velo);
-CREATE INDEX idx_location_date_debut ON Location(date_heure_debut);
-CREATE INDEX idx_location_date_fin ON Location(date_heure_fin);
-
+-------------------------------------------------------------telechargement des csv------------------------------------------------------------
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.4/Uploads/client.csv'
 INTO TABLE Client
 FIELDS TERMINATED BY ','
@@ -50,4 +40,59 @@ INTO TABLE Velo
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
-Merci beau coups Natasha pour votre precieuse aide.
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.4/Uploads/location.csv'
+INTO TABLE Location
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+
+--*********************************    Merci beau coups 'Natasha' pour votre precieuse aide.*****************************************************--
+
+-- les correction pour empecher les valeurs negatives ou les doublons --
+
+ALTER TABLE Client
+ADD CONSTRAINT uc_email UNIQUE (email);
+
+ALTER TABLE Velo
+ADD CONSTRAINT chk_tarifHoraire_non_negatif CHECK (tarifHoraire >= 0);
+
+ALTER TABLE Velo
+ALTER disponible SET DEFAULT 'oui';
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------apres correction faites avec alter, le shema.sql est :----------------------------------------------
+
+CREATE TABLE Client (
+    id_client INT AUTO_INCREMENT PRIMARY KEY,
+    prenom VARCHAR(50) NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    dateInscription DATE NOT NULL
+);
+
+
+CREATE TABLE Velo (
+    id_velo INT AUTO_INCREMENT PRIMARY KEY,
+    marque VARCHAR(50) NOT NULL,
+    type ENUM('ville', 'route', 'tout terrain', 'course') NOT NULL,
+    taille ENUM('S', 'M', 'L', 'XL') NOT NULL,
+    tarifHoraire DECIMAL(10, 2) NOT NULL CHECK (tarifHoraire >= 0),
+    etat ENUM('neuf', 'bon', 'usé') NOT NULL,
+    disponible ENUM('oui', 'non') NOT NULL DEFAULT 'oui'
+);
+
+
+CREATE TABLE Location (
+    id_location INT AUTO_INCREMENT PRIMARY KEY,
+    id_client INT NOT NULL,
+    id_velo INT NOT NULL,
+    date_heure_debut DATETIME NOT NULL,
+    date_heure_fin DATETIME NOT NULL,
+    montantTotal DECIMAL(10, 2) NOT NULL CHECK (montantTotal >= 0),
+    FOREIGN KEY (id_client) REFERENCES Client(id_client),
+    FOREIGN KEY (id_velo) REFERENCES Velo(id_velo)
+);

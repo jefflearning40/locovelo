@@ -1,0 +1,10 @@
+CREATE INDEX idx_client_nom ON Client(nom);
+CREATE INDEX idx_client_email ON Client(email);
+CREATE INDEX idx_velo_type ON Velo(type);
+CREATE INDEX idx_velo_taille ON Velo(taille);
+CREATE INDEX idx_velo_etat ON Velo(etat);
+CREATE INDEX idx_velo_disponible ON Velo(disponible);
+CREATE INDEX idx_location_id_client ON Location(id_client);
+CREATE INDEX idx_location_id_velo ON Location(id_velo);
+CREATE INDEX idx_location_date_debut ON Location(date_heure_debut);
+CREATE INDEX idx_location_date_fin ON Location(date_heure_fin);
